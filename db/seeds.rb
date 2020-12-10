@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 15.times do 
-    Quote.create(text:Faker::Quote.famous_last_words , author: Faker::FunnyName.name , year:rand(1800...2020))
+    Quote.create(text:Faker::Quote.famous_last_words , author: Faker::FunnyName.name , year:rand(1800...2020), likes:rand(1..500))
 end 
 
 
