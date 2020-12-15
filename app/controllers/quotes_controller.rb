@@ -10,7 +10,7 @@ class QuotesController < ApplicationController
 
   # GET /quotes/1
   def show
-    render json: @quotes.as_json(include:{comments:{only:[:id, :content, :commenter, :quote_id]}})
+    render json: @quote.as_json(include:{comments:{only:[:id, :content, :commenter, :quote_id]}})
   end
 
   # POST /quotes
@@ -42,11 +42,11 @@ class QuotesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_quote
-      @quote = Quote.find(params[:id])
+      @quote = Quote.find_by_id(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
     def quote_params
-      params.require(:quote).permit(:text, :author, :year, :comments_attributes[:id, :content, :commenter, :quote_id]) 
+      params.require(:quote).permit(:text, :author, :year) 
     end
 end
