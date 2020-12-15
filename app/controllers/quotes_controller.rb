@@ -5,12 +5,12 @@ class QuotesController < ApplicationController
   def index
     @quotes = Quote.all
 
-    render json: @quotes
+    render json: @quotes.as_json(include:{comments:{only:[:id, :content, :commenter, :quote_id]}})
   end
 
   # GET /quotes/1
   def show
-    render json: @quote
+    render json: @quotes.as_json(include:{comments:{only:[:id, :content, :commenter, :quote_id]}})
   end
 
   # POST /quotes
@@ -36,6 +36,7 @@ class QuotesController < ApplicationController
   # DELETE /quotes/1
   def destroy
     @quote.destroy
+    render json: @quote
   end
 
   private
@@ -46,6 +47,6 @@ class QuotesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def quote_params
-      params.require(:quote).permit(:text, :author, :year)
+      params.require(:quote).permit(:text, :author, :year, :comments_attributes[:id, :content, :commenter, :quote_id]) 
     end
 end

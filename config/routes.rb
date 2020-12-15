@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  get '/test', to: 'application#test'
-  resources :comments
+  
   resources :quotes do
     resources :comments 
   end 
