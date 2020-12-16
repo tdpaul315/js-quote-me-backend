@@ -3,14 +3,12 @@ class CommentsController < ApplicationController
 
   # GET /comments
   def index
-  
     if params[:quote_id]
-      @quote = Quote.find(params[:quote_id])
-      @comments  = @quote.comments 
+    @quote = Quote.find(params[:quote_id])
+    @comments = @quote.comments 
     else 
-      @comments = Comment.all 
-    end 
-
+   @comments = Comment.all 
+    end
     render json: @comments
   end
 
