@@ -19,13 +19,19 @@ class CommentsController < ApplicationController
 
   # POST /comments
   def create
-    @comment = Comment.new(comment_params)
-
-    if @comment.save
-      render json: @comment, status: :created, location: @comment
-    else
-      render json: @comment.errors, status: :unprocessable_entity
+    
+    if params[:quote_id]
+      @quote = Quote.find(params[:quote_id])
+      @comment = @quote.comments.build(comment_params)
+    else 
+      @comment = Comment.new(comment_params)
     end
+
+     if @comment.save
+      render json: @comment, status: :created, location: @comment
+     else
+      render json: @comment.errors, status: :unprocessable_entity
+     end
   end
 
   # PATCH/PUT /comments/1

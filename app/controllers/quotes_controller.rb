@@ -47,6 +47,6 @@ class QuotesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def quote_params
-      params.require(:quote).permit(:text, :author, :year) 
+      params.require(:quote).permit(:text, :author, :year, comments_attributes: [:id, :commenter, :content, :quote_id]) 
     end
 end
